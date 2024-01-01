@@ -12,19 +12,19 @@ const questions = [
     {
         question : 'Choose the correct HTML element for the largest heading:',
         answers: [
-            {content: '<h1>' , correct: true},
-            {content: '<h6>' , correct: false},
-            {content: '<heading>' , correct: false},
-            {content: '<head>' , correct: false},
+            {content: "<plaintext><h1>" , correct: true},
+            {content: "<plaintext><h6>" , correct: false},
+            {content: "<plaintext><heading>" , correct: false},
+            {content: "<plaintext><head>" , correct: false},
         ]
     },
     {
         question : 'What is the correct HTML element for inserting a line break?',
         answers: [
-            {content: '<break>' , correct: false},
-            {content: '<lb>' , correct: false},
-            {content: '<br>' , correct: true},
-            {content: '<b>' , correct: false},
+            {content: `<plaintext><break>` , correct: false},
+            {content: `<plaintext><lb>` , correct: false},
+            {content: `<plaintext><br>` , correct: true},
+            {content: `<plaintext><b>` , correct: false},
         ]
     },
     {
@@ -39,10 +39,10 @@ const questions = [
     {
         question : 'How can you make a numbered list?',
         answers: [
-            {content: '<ol>' , correct: true},
-            {content: '<dl>' , correct: false},
-            {content: '<ul>' , correct: false},
-            {content: '<list>' , correct: false},
+            {content: '<plaintext><ol>' , correct: true},
+            {content: '<plaintext><dl>' , correct: false},
+            {content: '<plaintext><ul>' , correct: false},
+            {content: '<plaintext><list>' , correct: false},
 
         ]
     },
