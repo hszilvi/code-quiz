@@ -27,3 +27,43 @@
         // }
         // questionElement.appendChild(displayCorrect);
     }
+
+    
+// display if answer is wrong or correct NEM HASZNALT FUGGVENYBEN HIVATKOZOM CSAK
+function displayAnswer(checkAnswer) {
+    const displayAnswerWrongOrCorrect = document.createElement('h3')
+    displayAnswerWrongOrCorrect = checkAnswer;
+    questionElement.appendChild(displayAnswerWrongOrCorrect);
+    console.log('dipslay answer works');
+}
+// hide wrong and correct element from display SEHOL NEM HASZNALOM
+function correctNotification() {
+    console.log('hideq works');
+    displayAnswer(displayCorrect);
+    displayCorrect.innerHTML = 'Correct!';
+    questionElement.appendChild(displayCorrect);
+    checkAnswer.innerHTML = 'Correct';
+    // console.log(answerBtns.firstChild);
+    //     answerBtns.removeChild(answerBtns.firstChild);
+    // showQuestion();
+}
+// function displayWrong() {
+//     console.log('display wrong works');
+//     const displayWrong = document.createElement('h3');
+//     questionElement.appendChild(displayWrong);
+
+//     if (answersElement.firstChild.innerHTML !== 'Wrong!') {    
+//         displayWrong.innerHTML = 'Wrong';
+
+//     } else {
+//         questionElement.removeChild(questionElement.firstChild);
+//         console.log('wtf')
+//     }  
+    
+// }
+
+// add eventlistener to answer buttons EZT SEHOL NEM HASZNALOM
+answersElement.forEach(function(click) {
+    click.addEventListener('click', selectAnswer(e));
+    console.log('buttons work')
+})

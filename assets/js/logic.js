@@ -72,7 +72,7 @@ function showQuestion(n) {
 
 // next question function with stop timer if questios end
 function nextQuestion() {
-    console.log('correct button is pressed');
+    // console.log('correct button is pressed');
     // displayAnswer();
     // correctNotification();
     if (currentQuestionIndex >= 5) {
@@ -89,59 +89,19 @@ function nextQuestion() {
 startBtn.addEventListener('click', startQuiz);
 // -----------------------------------
 
-// add eventlistener to answer buttons EZT SEHOL NEM HASZNALOM
-answersElement.forEach(function(click) {
-    click.addEventListener('click', selectAnswer(e));
-    console.log('buttons work')
-})
 
-// display if answer is wrong or correct NEM HASZNALT FUGGVENYBEN HIVATKOZOM CSAK
-function displayAnswer(checkAnswer) {
-    const displayAnswerWrongOrCorrect = document.createElement('h3')
-    displayAnswerWrongOrCorrect = checkAnswer;
-    questionElement.appendChild(displayAnswerWrongOrCorrect);
-    console.log('dipslay answer works');
-}
-// hide wrong and correct element from display SEHOL NEM HASZNALOM
-function correctNotification() {
-    console.log('hideq works');
-    displayAnswer(displayCorrect);
-    displayCorrect.innerHTML = 'Correct!';
-    questionElement.appendChild(displayCorrect);
-    checkAnswer.innerHTML = 'Correct';
-    // console.log(answerBtns.firstChild);
-    //     answerBtns.removeChild(answerBtns.firstChild);
-    // showQuestion();
-}
 // if answer is wrong this function is called OK OK OK OK
 function wrongAnswer() {
-    console.log('wrong works');
+    // console.log('wrong works');
     whatAnswer.innerHTML = 'Wrong!';
     timer = timer - 15;
     score = timer;
 }
 // EZT SEHOL SEM HASZNALOM
 function correctAnswer() {
-    console.log('correct works');
+    // console.log('correct works');
     whatAnswer.innerHTML = 'Correct';
 }
-// function displayWrong() {
-//     console.log('display wrong works');
-//     const displayWrong = document.createElement('h3');
-//     questionElement.appendChild(displayWrong);
-
-//     if (answersElement.firstChild.innerHTML !== 'Wrong!') {    
-//         displayWrong.innerHTML = 'Wrong';
-
-//     } else {
-//         questionElement.removeChild(questionElement.firstChild);
-//         console.log('wtf')
-//     }  
-    
-// }
-
-
-
 // ---------------------------------------
 // create timer function OK OK OK OK 
 function countDown() {
@@ -170,17 +130,23 @@ function stopTimer() {
     questionElement.className = 'hide';
     finalScore.innerHTML = score;
 // press submit --> store final score and initials 
+    submitScores();
+    
+}
+// if end of quiz submit button is pressed store the scores and initials in local storage
+function submitScores() {
     submitBtn.addEventListener('click', function() {
-        console.log('submit works');
-        let inputIni = document.getElementById('initials').value;
-        let initials = inputIni;
-        if (initials === null) {
+        let inputIni = document.getElementById('initials');
+        console.log('inputini: ' + inputIni.value);
+        if (!inputIni.value) {
             alert('Type your initials!');
         } else {
-            let totalScores = localStorage.getItem('finalScore');
-            totalScores = JSON.parse(finalScore);
+            let storedScores = localStorage.getItem('storedScore');
+            let storedInitials = localStorage.getItem('storedInitials');
+            storedInitials = inputIni.value;
+            storedScores = finalScore.textContent;
+            localStorage.setItem('storedScore', storedScores);
+            localStorage.setItem('storedInitials', storedInitials);
         }
-
     })
 }
-
