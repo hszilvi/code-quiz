@@ -28,22 +28,33 @@ function showQuestion() {
     questionElement.className = 'appear';
     questionTitle.innerHTML = currentQuestion.question;
     startBtn.className = 'hide';
+    // increase index to get next question 
+    currentQuestionIndex++;
+    console.log('currentquestionindex ' + currentQuestionIndex);
+
     // add answers as buttons
     console.log(currentQuestion); // this works
     console.log(currentQuestion.answers) // this is undefined
     currentQuestion.answers.forEach(answer => {
         let answerBtns = document.createElement('button');
         answerBtns.innerHTML = answer.content;
+        console.log('answers ' +answerBtns.innerHTML);
         answersElement.appendChild(answerBtns);
         // add eventlistener to buttons to get the correct and wrong answers
         // using dataset to get correct boolean element.dataset['keyname']
-        if (answer.correct) {
-            answerBtns.dataset.correct = answer.correct;
-        }
-        answerBtns.addEventListener('click', selectAnswer);
+        // if (answer.correct) {
+        //     answerBtns.dataset.correct = answer.correct;
+
+
+        // }
+        // answerBtns.addEventListener('click', selectAnswer);
     })
 }
+
+// add click eventlistener to start button to show the first question
 startBtn.addEventListener('click', showQuestion);
+
+
 function selectAnswer(e) {
     // target property return the element on which the event occured
     const selectedBtn = e.target;
@@ -55,8 +66,9 @@ function selectAnswer(e) {
         questionElement.appendChild(displayCorrect);
         // add scores + timer
         // display the next question, increase question index
-        currentQuestionIndex++;
+        // currentQuestionIndex++;
         console.log(currentQuestionIndex);
+        // add click eventlistener to correct answer to show next question
         selectedBtn.addEventListener('click', showQuestion);
         // to check how it worked with to do list
         // hideQuestion();
