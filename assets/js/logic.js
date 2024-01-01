@@ -1,21 +1,22 @@
 // link all the questions/answers to html 
-    // answers are button elements
-    const questionElement = document.getElementById('questions');
-    const questionTitle = document.getElementById('question-title');
-    const answersElement = document.getElementById('choices');
+const questionElement = document.getElementById('questions');
+const questionTitle = document.getElementById('question-title');
+const answersElement = document.getElementById('choices');
 
-    const correctAnswerNot = document.getElementById('correct-answer');
-    const wrongAnswerNot = document.getElementById('wrong-answer');
+// const correctAnswerNot = document.getElementById('correct-answer');
+// const wrongAnswerNot = document.getElementById('wrong-answer');
+const whatAnswer = document.getElementById('what-answer');
 
-    const startScreen = document.getElementById('start-screen');
-    const endScreen = document.getElementById('end-screen');
-    const finalScore = document.getElementById('final-score');
+const startScreen = document.getElementById('start-screen');
+const endScreen = document.getElementById('end-screen');
+const finalScore = document.getElementById('final-score');
+const submitBtn = document.getElementById('submit');
+
     
-
-    // if start quiz button is pressed questionElement appears with first question
-    const startBtn = document.getElementById('start');
-    // display timer
-    const displayTimer = document.getElementById('time');
+// if start quiz button is pressed questionElement appears with first question
+const startBtn = document.getElementById('start');
+// display timer
+const displayTimer = document.getElementById('time');
     
 // create variable to store the index of current question
 // create variable to store the scores
@@ -31,8 +32,6 @@ function startQuiz() {
     startBtn.className = 'hide';
     // show first question
     showQuestion(currentQuestionIndex);
-    // displayAnswer();
-    // console.log('current question ' + currentQuestionIndex);
     // display timer, set to the value of timer
     displayTimer.innerHTML = timer;
     score = timer;
@@ -56,39 +55,18 @@ function showQuestion(n) {
         answersElement.appendChild(answerBtns);
         currentQuestionIndex = n;
         currentQuestionIndex++;
-    // show and hide correct ans wrong display
-    // const displayCorrect = document.createElement('h3');
-    // displayCorrect.innerHTML = 'Correct!';
-    // const displayWrong = document.createElement('h3');
-    // displayWrong.innerHTML = 'Wrong!';
-    // questionElement.appendChild(displayCorrect);
-    // questionElement.appendChild(displayWrong);
-    // displayCorrect.className = 'hide';
-    // displayWrong.className = 'hide';
-
-        // console.log('answer elements: ' + answersElement.innerHTML);
-        // add eventlistener to buttons to get the correct and wrong answers
-        // using dataset to get correct boolean element.dataset['keyname'] trigger onclick
-        
+        whatAnswer.innerHTML = '';
+        // using dataset to get correct boolean element.dataset['keyname'] trigger onclick      
         if (answer.correct) {
-            // const displayCorrect = document.createElement('h3');
-            // displayCorrect.innerHTML = 'Correct!';
-            // questionElement.appendChild(displayCorrect);
             // displayAnswer()
-            // correctAnswer();
-
             answerBtns.dataset.correct = answer.correct;
             score = timer;
             console.log('actual score ' + score);
             answerBtns.addEventListener('click', nextQuestion);
+            // correctAnswer();
         } else {
             answerBtns.addEventListener('click', wrongAnswer);
-            // const displayCorrect = document.createElement('h3');
-            // displayCorrect.innerHTML = 'Wrong!';
-            // questionElement.appendChild(displayCorrect);
-
         }
-        // answerBtns.addEventListener('click', selectAnswer);
     })
 }
 
@@ -98,38 +76,33 @@ function nextQuestion() {
     // displayAnswer();
     // correctNotification();
     if (currentQuestionIndex >= 5) {
-        console.log('wtf')
+        // console.log('wtf')
+        whatAnswer.innerHTML = 'Correct!';
         stopTimer();
     } else {
         showQuestion(currentQuestionIndex);
-        console.log(currentQuestionIndex);
-    }
-        
-
-    
-    
+        // console.log(currentQuestionIndex);
+    } 
 }
 // ---------------------------
 // add click eventlistener to start button to show the first question OK OK OK OK 
 startBtn.addEventListener('click', startQuiz);
 // -----------------------------------
 
-
-// add eventlistener to answer buttons
+// add eventlistener to answer buttons EZT SEHOL NEM HASZNALOM
 answersElement.forEach(function(click) {
     click.addEventListener('click', selectAnswer(e));
     console.log('buttons work')
 })
 
-// display if answer is wrong or correct
+// display if answer is wrong or correct NEM HASZNALT FUGGVENYBEN HIVATKOZOM CSAK
 function displayAnswer(checkAnswer) {
     const displayAnswerWrongOrCorrect = document.createElement('h3')
     displayAnswerWrongOrCorrect = checkAnswer;
     questionElement.appendChild(displayAnswerWrongOrCorrect);
     console.log('dipslay answer works');
-
 }
-// hide wrong and correct element from display
+// hide wrong and correct element from display SEHOL NEM HASZNALOM
 function correctNotification() {
     console.log('hideq works');
     displayAnswer(displayCorrect);
@@ -137,26 +110,20 @@ function correctNotification() {
     questionElement.appendChild(displayCorrect);
     checkAnswer.innerHTML = 'Correct';
     // console.log(answerBtns.firstChild);
-
     //     answerBtns.removeChild(answerBtns.firstChild);
-    
     // showQuestion();
-
 }
+// if answer is wrong this function is called OK OK OK OK
 function wrongAnswer() {
     console.log('wrong works');
-    wrongAnswerNot.className = 'block';
-    correctAnswerNot.className = 'hide';
-    // displayWrong.innerHTML = 'Wrong!';
-    // questionElement.appendChild(displayWrong);
+    whatAnswer.innerHTML = 'Wrong!';
     timer = timer - 15;
     score = timer;
-    console.log('score after wrong answer ' + score);
 }
+// EZT SEHOL SEM HASZNALOM
 function correctAnswer() {
     console.log('correct works');
-    correctAnswerNot.className = 'block';
-    wrongAnswerNot.className = 'hide;'
+    whatAnswer.innerHTML = 'Correct';
 }
 // function displayWrong() {
 //     console.log('display wrong works');
@@ -172,6 +139,9 @@ function correctAnswer() {
 //     }  
     
 // }
+
+
+
 // ---------------------------------------
 // create timer function OK OK OK OK 
 function countDown() {
@@ -180,16 +150,17 @@ function countDown() {
         displayTimer.innerHTML = timer;
         if (timer <= 0) {
             clearInterval(timeInterval);
+            stopTimer();
+            finalScore.innerHTML = '0';
+            displayTimer.innerHTML = '0';
             console.log('game over');
         } else {
             console.log('you still have time')
             score = timer;
             console.log('score: ' + score);
         }
-
     }, 1000);
 }
-
 // end quiz OK OK OK OK
 function stopTimer() {
     console.log('stop timer works');
@@ -198,8 +169,18 @@ function stopTimer() {
     endScreen.className = 'block';
     questionElement.className = 'hide';
     finalScore.innerHTML = score;
+// press submit --> store final score and initials 
+    submitBtn.addEventListener('click', function() {
+        console.log('submit works');
+        let inputIni = document.getElementById('initials').value;
+        let initials = inputIni;
+        if (initials === null) {
+            alert('Type your initials!');
+        } else {
+            let totalScores = localStorage.getItem('finalScore');
+            totalScores = JSON.parse(finalScore);
+        }
+
+    })
 }
-
-// press submit --> store final score and initials
-
 
