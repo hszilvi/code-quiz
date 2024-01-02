@@ -1,6 +1,5 @@
 # code-quiz
 
-# password-generator-js
 # Table of content
 
 [Overview](#Overview)
