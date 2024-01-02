@@ -17,9 +17,9 @@
 This is the solution of the 6th week challange, called Code Quiz. I recreated the challange to practice using Javascript functions, etc. 
 
 ## Screenshots
-
-
-
+![mainpage](./assets/img/Screenshot%202024-01-02%20210027.png)
+[store-nitials](./assets/img/Screenshot%202024-01-02%20210159.png)
+[store-highscores](./assets/img/Screenshot%202024-01-02%20210322.png)
 
 ### Links
 Password Generator on github[https://github.com/hszilvi/code-quiz]
@@ -29,7 +29,7 @@ live link[https://hszilvi.github.io/code-quiz/]
 At first I wrote the pseucodes to create a "to do" list before create the code.
 Using thsese pseucodes I created the functions.
 Later I made the code shorter and separated functions as I revisioned my code.
-It was challanging to display data from local storage. 
+It was challenging to display data from local storage. 
 
 I wrote the readme.md with the relative path to screen shot and links and other expected contents. 
 
@@ -37,10 +37,10 @@ I wrote the readme.md with the relative path to screen shot and links and other 
 Javascript, VS code
 
 ## What_I_learned
-I learned a lot about Javascript functions. 
+I learned a lot about Javascript functions, how to separate them and using multiple times. 
 
 ### Continued_developement
-- deeper understanding of functions
+- deeper understanding of using local storage and setInterval
 
 ## Author
 Szilvia Horvath
