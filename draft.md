@@ -67,3 +67,74 @@ answersElement.forEach(function(click) {
     click.addEventListener('click', selectAnswer(e));
     console.log('buttons work')
 })
+
+let scoreList = [];
+function saveScore() {
+
+    // e.preventDefault();
+    console.log('save');
+    let inputIni = document.getElementById('initials');
+    console.log('inputini ' +inputIni);
+    scoreList.push({initials: inputIni.value, score: finalScore});
+    highScoreDiv.innerHTML = '';
+    storeScoreList();
+    displayScoreList();
+    for (let i = 0; i < scoreList.length; i++) {
+        let li = document.createElement('li');
+        li.textContent = `${scoreList[i].initials}: ${scoreList[i].score}`;
+        highScoreDiv.appendChild(li);
+    }
+
+}
+function storeScoreList() {
+    console.log('storeScorelist works')
+    localStorage.setItem('scoreList', JSON.stringify(scoreList));
+}
+function displayScoreList() {
+    console.log('display works');
+    let storedScoreList = JSON.parse(localStorage.getItem('scoreList'));
+    if (storedScoreList !== null) {
+        scoreList = storeScoreList;
+        console.log(scoreList);
+    }
+
+};
+        
+        // console.log('inputini: ' + inputIni.value);
+    // if (!inputIni.value) {
+    //     alert('Type your initials!');
+    // } else {
+    //     saveScore();
+    // }
+
+    // {
+
+        //     console.log('submit is clicked');
+        //     let totalScore = localStorage.getItem('storedScore');
+        //     let initial = localStorage.getItem('storedInitials');
+        //     const highScores = JSON.parse(localStorage.getItem('highScores'));
+        //     const table = {
+        //         name: initial,
+        //         score: totalScore
+        //     };
+
+        //     highScores.push(score);
+        //     console.log('highscores ' + highScores);
+
+            // let storedScores = localStorage.getItem('storedScore');
+            // let storedInitials = localStorage.getItem('storedInitials');
+            // if (storedScores === null) {
+            //     storedScores = [];
+            // } else {
+            //     storedScores = JSON.parse(storedScores)
+            // }
+            // storedScores.push(finalScore);
+            // storedInitials = inputIni.value;
+            // storedScores = finalScore.textContent;
+            // localStorage.setItem('storedScore', storedScores);
+            // localStorage.setItem('storedInitials', storedInitials);
+            // reload the page 
+    //         location.reload();
+    //     }
+    // })
+// }

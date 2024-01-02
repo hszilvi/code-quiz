@@ -2,9 +2,7 @@
 const questionElement = document.getElementById('questions');
 const questionTitle = document.getElementById('question-title');
 const answersElement = document.getElementById('choices');
-
-// const correctAnswerNot = document.getElementById('correct-answer');
-// const wrongAnswerNot = document.getElementById('wrong-answer');
+const showHighScoresBtn = document.querySelector('.scores');
 const whatAnswer = document.getElementById('what-answer');
 
 const startScreen = document.getElementById('start-screen');
@@ -55,6 +53,7 @@ function showQuestion(n) {
         answersElement.appendChild(answerBtns);
         currentQuestionIndex = n;
         currentQuestionIndex++;
+        // empty whatAnswer if next question is shown up
         whatAnswer.innerHTML = '';
         // using dataset to get correct boolean element.dataset['keyname'] trigger onclick      
         if (answer.correct) {
@@ -72,16 +71,13 @@ function showQuestion(n) {
 
 // next question function with stop timer if questios end
 function nextQuestion() {
-    // console.log('correct button is pressed');
     // displayAnswer();
     // correctNotification();
     if (currentQuestionIndex >= 5) {
-        // console.log('wtf')
         whatAnswer.innerHTML = 'Correct!';
         stopTimer();
     } else {
         showQuestion(currentQuestionIndex);
-        // console.log(currentQuestionIndex);
     } 
 }
 // ---------------------------
@@ -89,12 +85,10 @@ function nextQuestion() {
 startBtn.addEventListener('click', startQuiz);
 // -----------------------------------
 
-
 // if answer is wrong this function is called OK OK OK OK
 function wrongAnswer() {
-    // console.log('wrong works');
     whatAnswer.innerHTML = 'Wrong!';
-    timer = timer - 15;
+    timer = timer - 10;
     score = timer;
 }
 // EZT SEHOL SEM HASZNALOM
@@ -130,23 +124,66 @@ function stopTimer() {
     questionElement.className = 'hide';
     finalScore.innerHTML = score;
 // press submit --> store final score and initials 
-    submitScores();
+    // submitScores();
     
 }
 // if end of quiz submit button is pressed store the scores and initials in local storage
-function submitScores() {
-    submitBtn.addEventListener('click', function() {
-        let inputIni = document.getElementById('initials');
-        console.log('inputini: ' + inputIni.value);
-        if (!inputIni.value) {
-            alert('Type your initials!');
-        } else {
-            let storedScores = localStorage.getItem('storedScore');
-            let storedInitials = localStorage.getItem('storedInitials');
-            storedInitials = inputIni.value;
-            storedScores = finalScore.textContent;
-            localStorage.setItem('storedScore', storedScores);
-            localStorage.setItem('storedInitials', storedInitials);
-        }
-    })
+// function submitScores() {
+
+let inputIni = document.getElementById('initials');
+submitBtn.addEventListener('click', function() {
+    saveScore();
+});
+
+const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+// console.log(highScores);  
+
+function saveScore() {
+    let scoreList = {
+        name: inputIni.value,
+        score: score
+    };
+    console.log('saved clicked');
+    console.log(inputIni.value);
+    if (!inputIni.value) {
+        alert('Type your initials!');
+        scoreList = [];
+    } else {
+        // console.log(highScores);
+        highScores.push(scoreList);
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+        displayHighScores();
+    }
+};
+const highScoreDiv = document.getElementById('highscores');
+console.log(highScoreDiv);
+function displayHighScores() {
+    // console.log('display called');
+    // console.log(highScores.length);
+    highScoreDiv.innerHTML = '';
+    highScores.forEach((score) => {
+        let li = document.createElement('li');
+        li.textContent = `${score.name}: ${score.score}`;
+        console.log(li.textContent);
+        highScoreDiv.appendChild(li);
+    });
+    console.log(highScoreDiv);
 }
+
+showHighScoresBtn.addEventListener('click', function() {
+    console.log('clicked');
+    displayHighScores();
+})
+
+console.log('it works');
+// const highScoreDiv = document.getElementById('highscores');
+const clearBtn = document.getElementById('clear');
+console.log(clearBtn);
+highScoreDiv.innerHTML = 'hello';
+// clear local storage and highscores + reload the page
+clearBtn.addEventListener('click', function() {
+    console.log('highscore clr')
+    highScoreDiv.innerHTML = '';
+    localStorage.clear();
+    location.reload();
+})
