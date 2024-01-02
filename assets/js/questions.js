@@ -48,12 +48,4 @@ const questions = [
     },
 ];
 
-// export { questions };
-// link all the questions/answers to html 
-    // answers are button elements
-// const questionElement = document.getElementById('questions');
-// const questionTitle = document.getElementById('question-title');
-// const answersElement = document.getElementById('choices');
-// if start quiz button is pressed questionElement appears with first question
-// const startBtn = document.getElementById('start');
 

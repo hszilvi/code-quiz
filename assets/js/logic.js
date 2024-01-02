@@ -10,8 +10,8 @@ const endScreen = document.getElementById('end-screen');
 const finalScore = document.getElementById('final-score');
 const submitBtn = document.getElementById('submit');
 
-const highScoreDiv = document.getElementById('highscores');
-const clearBtn = document.getElementById('clear');
+// const highScoreDiv = document.getElementById('highscores');
+// const clearBtn = document.getElementById('clear');
     
 // if start quiz button is pressed questionElement appears with first question
 const startBtn = document.getElementById('start');
@@ -37,7 +37,6 @@ function startQuiz() {
     score = timer;
     // start timer
     countDown();
-    // stopTimer();
 }
 // ------------------------------------------
 // function to make the questions + answers appear - answers should be buttons 
@@ -62,7 +61,6 @@ function showQuestion(n) {
             // displayAnswer()
             answerBtns.dataset.correct = answer.correct;
             score = timer;
-            console.log('actual score ' + score);
             answerBtns.addEventListener('click', nextQuestion);
             // correctAnswer();
         } else {
@@ -72,8 +70,6 @@ function showQuestion(n) {
 }
 // next question function with stop timer if questios end
 function nextQuestion() {
-    // displayAnswer();
-    // correctNotification();
     if (currentQuestionIndex >= 5) {
         whatAnswer.innerHTML = 'Correct!';
         stopTimer();
@@ -81,23 +77,18 @@ function nextQuestion() {
         showQuestion(currentQuestionIndex);
     } 
 }
-// ---------------------------
-// add click eventlistener to start button to show the first question OK OK OK OK 
+
+// add click eventlistener to start button to show the first question 
 startBtn.addEventListener('click', startQuiz);
-// -----------------------------------
-// if answer is wrong this function is called OK OK OK OK
+
+// if answer is wrong this function is called / it displays wrong and decrease timer 
 function wrongAnswer() {
     whatAnswer.innerHTML = 'Wrong!';
     timer = timer - 10;
     score = timer;
 }
-// EZT SEHOL SEM HASZNALOM
-function correctAnswer() {
-    // console.log('correct works');
-    whatAnswer.innerHTML = 'Correct';
-}
-// ---------------------------------------
-// create timer function OK OK OK OK 
+
+// create timer function
 function countDown() {
     timeInterval = setInterval(function () {
         timer--;
@@ -107,97 +98,42 @@ function countDown() {
             stopTimer();
             finalScore.innerHTML = '0';
             displayTimer.innerHTML = '0';
-            console.log('game over');
+            score = 0;
         } else {
-            console.log('you still have time')
             score = timer;
-            console.log('score: ' + score);
         }
     }, 1000);
 }
-// end quiz OK OK OK OK
+// end quiz, stop timer and display final score
 function stopTimer() {
-    console.log('stop timer works');
     clearInterval(timeInterval);
     startScreen.className = 'hide';
     endScreen.className = 'block';
     questionElement.className = 'hide';
     finalScore.innerHTML = score;
 }
-// if end of quiz submit button is pressed store the scores and initials in local storage
-// function submitScores() {
 
+// if end of quiz submit button is pressed store the scores and initials in local storage
 let inputIni = document.getElementById('initials');
 submitBtn.addEventListener('click', function() {
-    window.location.href = 'highscores.html';
     saveScore();
 });
 
+// get the data from loca storage
 const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-// console.log(highScores);  
+
+// function to save data to object from local storage and open highscores html
 function saveScore() {
     let scoreList = {
         name: inputIni.value,
         score: score
     };
-    console.log('saved clicked');
-    console.log(inputIni.value);
     if (!inputIni.value) {
         alert('Type your initials!');
-        scoreList = [];
+        scoreList = {};
     } else {
-        highScoreDiv.innerHTML = 'why???'
-        console.log(highScoreDiv);
-        // console.log(highScores);
         highScores.push(scoreList);
         localStorage.setItem('highScores', JSON.stringify(highScores));
-        for (i = 0; i < highScores.length; i++ ) {
-            let li = document.createElement('li');
-            console.log(li);
-            li.textContent = `${scoreList.name}: ${scoreList.score}`;
-            console.log(li.textContent);
-            highScoreDiv.appendChild(li);
-            
-        }
-
-
-
-
-
-        // displayHighScores();
+        window.location.href = 'highscores.html';
     }
 };
-// function displayHighScores() {
-//     console.log('display called');
-//     // console.log(highScores.length);
-//     // highScoreDiv.innerHTML = '';
-//     console.log('highscorediv' + highScoreDiv);
-//     // highScores.forEach((score) => {
-//     //     let li = document.createElement('li');
-//     //     li.textContent = `${score.name}: ${score.score}`;
-//     //     console.log(li.textContent);
-//     //     highScoreDiv.appendChild(li);
-//     // });
-//     console.log(highScores.length);
-//     for (i = 0; i < highScores.length; i++); {
-//         let li = document.createElement('li');
-//         li.textContent = `${highScores.name}: ${highScores.score}`;
-//         console.log(li.textContent);
-//         highScoreDiv.appendChild(li);
-//     }
-//     console.log(highScoreDiv);
-// }
-
-// showHighScoresBtn.addEventListener('click', function() {
-//     console.log('clicked');
-//     displayHighScores();
-// })
-// const highScoreDiv = document.getElementById('highscores');
-
-// clear local storage and highscores + reload the page
-clearBtn.addEventListener('click', function() {
-    console.log('highscore clr');
-    highScoreDiv.innerHTML = '';
-    localStorage.clear();
-    location.reload();
-})
