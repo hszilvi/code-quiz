@@ -10,12 +10,14 @@ const endScreen = document.getElementById('end-screen');
 const finalScore = document.getElementById('final-score');
 const submitBtn = document.getElementById('submit');
 
+const highScoreDiv = document.getElementById('highscores');
+const clearBtn = document.getElementById('clear');
     
 // if start quiz button is pressed questionElement appears with first question
 const startBtn = document.getElementById('start');
 // display timer
 const displayTimer = document.getElementById('time');
-    
+
 // create variable to store the index of current question
 // create variable to store the scores
 // set timer to 75 as start value
@@ -68,7 +70,6 @@ function showQuestion(n) {
         }
     })
 }
-
 // next question function with stop timer if questios end
 function nextQuestion() {
     // displayAnswer();
@@ -84,7 +85,6 @@ function nextQuestion() {
 // add click eventlistener to start button to show the first question OK OK OK OK 
 startBtn.addEventListener('click', startQuiz);
 // -----------------------------------
-
 // if answer is wrong this function is called OK OK OK OK
 function wrongAnswer() {
     whatAnswer.innerHTML = 'Wrong!';
@@ -123,21 +123,18 @@ function stopTimer() {
     endScreen.className = 'block';
     questionElement.className = 'hide';
     finalScore.innerHTML = score;
-// press submit --> store final score and initials 
-    // submitScores();
-    
 }
 // if end of quiz submit button is pressed store the scores and initials in local storage
 // function submitScores() {
 
 let inputIni = document.getElementById('initials');
 submitBtn.addEventListener('click', function() {
+    window.location.href = 'highscores.html';
     saveScore();
 });
 
 const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 // console.log(highScores);  
-
 function saveScore() {
     let scoreList = {
         name: inputIni.value,
@@ -149,40 +146,57 @@ function saveScore() {
         alert('Type your initials!');
         scoreList = [];
     } else {
+        highScoreDiv.innerHTML = 'why???'
+        console.log(highScoreDiv);
         // console.log(highScores);
         highScores.push(scoreList);
         localStorage.setItem('highScores', JSON.stringify(highScores));
-        displayHighScores();
+        for (i = 0; i < highScores.length; i++ ) {
+            let li = document.createElement('li');
+            console.log(li);
+            li.textContent = `${scoreList.name}: ${scoreList.score}`;
+            console.log(li.textContent);
+            highScoreDiv.appendChild(li);
+            
+        }
+
+
+
+
+
+        // displayHighScores();
     }
 };
-const highScoreDiv = document.getElementById('highscores');
-console.log(highScoreDiv);
-function displayHighScores() {
-    // console.log('display called');
-    // console.log(highScores.length);
-    highScoreDiv.innerHTML = '';
-    highScores.forEach((score) => {
-        let li = document.createElement('li');
-        li.textContent = `${score.name}: ${score.score}`;
-        console.log(li.textContent);
-        highScoreDiv.appendChild(li);
-    });
-    console.log(highScoreDiv);
-}
+// function displayHighScores() {
+//     console.log('display called');
+//     // console.log(highScores.length);
+//     // highScoreDiv.innerHTML = '';
+//     console.log('highscorediv' + highScoreDiv);
+//     // highScores.forEach((score) => {
+//     //     let li = document.createElement('li');
+//     //     li.textContent = `${score.name}: ${score.score}`;
+//     //     console.log(li.textContent);
+//     //     highScoreDiv.appendChild(li);
+//     // });
+//     console.log(highScores.length);
+//     for (i = 0; i < highScores.length; i++); {
+//         let li = document.createElement('li');
+//         li.textContent = `${highScores.name}: ${highScores.score}`;
+//         console.log(li.textContent);
+//         highScoreDiv.appendChild(li);
+//     }
+//     console.log(highScoreDiv);
+// }
 
-showHighScoresBtn.addEventListener('click', function() {
-    console.log('clicked');
-    displayHighScores();
-})
-
-console.log('it works');
+// showHighScoresBtn.addEventListener('click', function() {
+//     console.log('clicked');
+//     displayHighScores();
+// })
 // const highScoreDiv = document.getElementById('highscores');
-const clearBtn = document.getElementById('clear');
-console.log(clearBtn);
-highScoreDiv.innerHTML = 'hello';
+
 // clear local storage and highscores + reload the page
 clearBtn.addEventListener('click', function() {
-    console.log('highscore clr')
+    console.log('highscore clr');
     highScoreDiv.innerHTML = '';
     localStorage.clear();
     location.reload();
